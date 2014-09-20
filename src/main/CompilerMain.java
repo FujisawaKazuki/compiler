@@ -18,6 +18,7 @@ public class CompilerMain {
 		
 		Node initialNode = new ProgramNode();
 		initialNode.parse(ctx);
+		Logger.printLog(""+initialNode);
 	}
 
 }
