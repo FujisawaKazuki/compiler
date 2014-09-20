@@ -76,7 +76,7 @@ import java.util.LinkedList;
 		}
 		
 		private static void syntax_err(){
-			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "syntax err");
+			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "syntax err");
 			System.exit(-1);			
 		}
 		
@@ -100,33 +100,33 @@ import java.util.LinkedList;
 			scan();
 			if((token.equals("SVAR"))||(token.equals("SPROCEDURE"))){
 			block_st();
-			bw.write("MAIN¥tSTART¥n");
-	        bw.write("¥tLAD¥tGR6,0¥n");
-	        bw.write("¥tLAD¥tGR7,LIBBUF¥n");
-	        bw.write("¥tLAD¥tGR3,GV¥n");
+			bw.write("MAIN\tSTART\n");
+	        bw.write("\tLAD\tGR6,0\n");
+	        bw.write("\tLAD\tGR7,LIBBUF\n");
+	        bw.write("\tLAD\tGR3,GV\n");
 			scan();
 			}
 			if(!token.equals("SBEGIN")){
 				syntax_err();
 			}
 			compound_st();
-			bw.write("¥tRET¥n");
-			bw.write(";;;;;;;;;library buffer;;;;;;;;;¥n");
-			bw.write("LIBBUF¥tDS¥t256¥n");
+			bw.write("\tRET\n");
+			bw.write(";;;;;;;;;library buffer;;;;;;;;;\n");
+			bw.write("LIBBUF\tDS\t256\n");
 			if(g_var_table.size()>0){//DS
-				bw.write(";;;;;;;;;GLOBAL;;;;;;;;;;¥n");
-				bw.write("GV¥tDS¥t0¥n");
+				bw.write(";;;;;;;;;GLOBAL;;;;;;;;;;\n");
+				bw.write("GV\tDS\t0\n");
 				for(int i=0;i<g_var_table.size();i++){
-					bw.write(g_var_table.get(i).getvar_name() + "¥tDS¥t" + g_var_table.get(i).getvar_size() +"¥n");
+					bw.write(g_var_table.get(i).getvar_name() + "\tDS\t" + g_var_table.get(i).getvar_size() +"\n");
 				}
 			}
 			if(const_tmp.size()>0){//DC
-				  bw.write(";;;;;;;;;CONST;;;;;;;;;;¥n");
+				  bw.write(";;;;;;;;;CONST;;;;;;;;;;\n");
 					for(int j=0;j<const_tmp.size();j++){
-						bw.write("ST"+ j + "¥tDC¥t" + const_tmp.get(j) +"¥n");
+						bw.write("ST"+ j + "\tDC\t" + const_tmp.get(j) +"\n");
 					}
 			  }
-			bw.write("¥tEND¥n");
+			bw.write("\tEND\n");
 			scan();
 			if(!token.equals("SDOT")){
 				syntax_err();
@@ -210,7 +210,7 @@ import java.util.LinkedList;
 						for(int j=0;j<l_var_table.size();j++){
 							past= l_var_table.get(j).getvar_name();
 						if(past.equals(now)){
-							System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable is defined duplicately.");//3
+							System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable is defined duplicately.");//3
 			        		System.exit(-1);	
 						}
 						}
@@ -218,7 +218,7 @@ import java.util.LinkedList;
 						for(int j=0;j<g_var_table.size();j++){
 							past= g_var_table.get(j).getvar_name();
 						if(past.equals(now)){
-							System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable is defined duplicately.");//3
+							System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable is defined duplicately.");//3
 			        		System.exit(-1);	
 						}
 						}
@@ -267,7 +267,7 @@ import java.util.LinkedList;
         		scan();
         		varname();
         		if(tmp1.contains(ziku)){
-        		System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable is defined duplicately.");//3
+        		System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable is defined duplicately.");//3
         		System.exit(-1);
         		}
         		tmp1.addLast(ziku);
@@ -333,7 +333,7 @@ import java.util.LinkedList;
 					Var_l.setvar_max(ziku);	
 				}
             if(Var_l.getvar_max().compareTo(Var_l.getvar_min())<0){
-			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "index in array : min is bigger than max.");	
+			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "index in array : min is bigger than max.");	
 			System.exit(-1);
 			}
 			}else{
@@ -356,7 +356,7 @@ import java.util.LinkedList;
     					Var_g.setvar_max(ziku);	
     				}
                 if(Var_g.getvar_max().compareTo(Var_g.getvar_min())<0){
-    			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "index in array : min is bigger than max.");	
+    			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "index in array : min is bigger than max.");	
     			System.exit(-1);
     			}
 			}
@@ -399,10 +399,10 @@ import java.util.LinkedList;
 		
 		private static void subprogramseq_st() throws IOException{//副プログラム宣言群
 			gl_flag = false;
-			bw.write("CASL¥tSTART¥n");
-			bw.write("¥tJUMP¥tMAIN¥n");
-			bw.write("¥tRET¥n");
-			bw.write("¥tEND¥n");
+			bw.write("CASL\tSTART\n");
+			bw.write("\tJUMP\tMAIN\n");
+			bw.write("\tRET\n");
+			bw.write("\tEND\n");
 			subprogram_st();
 			scan();
 			if(!token.equals("SSEMICOLON")){
@@ -426,10 +426,10 @@ import java.util.LinkedList;
 			subprogramhead_st();
 			String s =procedure_name;
 			s = s + "        ";//8個分の空白を入れる。
-			bw.write(";;;;;;" + procedure_name + "¥tbegin;;;;;;¥n");
-			bw.write(s.toUpperCase().substring(0,7) +"¥tSTART¥n");
-		    bw.write("¥tPUSH¥t0,GR5¥n");
-			bw.write("¥tLD¥tGR5,GR8¥n");
+			bw.write(";;;;;;" + procedure_name + "\tbegin;;;;;;\n");
+			bw.write(s.toUpperCase().substring(0,7) +"\tSTART\n");
+		    bw.write("\tPUSH\t0,GR5\n");
+			bw.write("\tLD\tGR5,GR8\n");
 			scan();
 			}
 			if(token.equals("SVAR")){
@@ -437,24 +437,24 @@ import java.util.LinkedList;
 		    varseq_st();
 			scan();
 			}
-			bw.write("¥tSUBA¥tGR8,=" + offset + "¥n");
+			bw.write("\tSUBA\tGR8,=" + offset + "\n");
 			offset = 0;
 			if(token.equals("SBEGIN")){
 			compound_st();
-			bw.write("¥tLAD¥tGR8,1,GR5¥n");
-			bw.write("¥tLD¥tGR5,0,GR5¥n");
-			bw.write("¥tRET¥n");
+			bw.write("\tLAD\tGR8,1,GR5\n");
+			bw.write("\tLD\tGR5,0,GR5\n");
+			bw.write("\tRET\n");
 			if(const_tmp.size()>0){//DC
-				  bw.write(";;;;;;;;;CONST;;;;;;;;;;¥n");
+				  bw.write(";;;;;;;;;CONST;;;;;;;;;;\n");
 					for(int j=0;j<const_tmp.size();j++){
-						bw.write("ST"+ j + "¥tDC¥t" + const_tmp.get(j) +"¥n");
+						bw.write("ST"+ j + "\tDC\t" + const_tmp.get(j) +"\n");
 					}
 			  }
-			bw.write("¥tEND¥n");
+			bw.write("\tEND\n");
 			scan();
 			}
 			bcan();
-			bw.write(";;;;;;" + procedure_name + "¥tend;;;;;;¥n");
+			bw.write(";;;;;;" + procedure_name + "\tend;;;;;;\n");
 		}
 		private static void subprogramhead_st() throws IOException{//副プログラム頭部
 			if(!token.equals("SPROCEDURE")){
@@ -538,17 +538,17 @@ import java.util.LinkedList;
 		private static void if_st() throws IOException{//if文
 			int type;
 			int alab,blab;
-			bw.write(";;;;if;;;;¥n");
+			bw.write(";;;;if;;;;\n");
 			scan();
 			type = exp_st();
 			if(type != 2){
-			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "invalid type is used in conditionnal expression at if statement.");//13
+			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "invalid type is used in conditionnal expression at if statement.");//13
 			System.exit(-1);
 			}
 			alab = make_label();
-			bw.write("¥tLAD¥tGR2,0¥n");
-			bw.write("¥tCPA¥tGR1,GR2¥n");
-			bw.write("¥tJZE¥tL" + alab + "¥n");
+			bw.write("\tLAD\tGR2,0\n");
+			bw.write("\tCPA\tGR1,GR2\n");
+			bw.write("\tJZE\tL" + alab + "\n");
 			scan();
 			if(!token.equals("STHEN")){
 			syntax_err();	
@@ -558,14 +558,14 @@ import java.util.LinkedList;
 			scan();
 			if(token.equals("SELSE")){
 			blab = make_label();
-			bw.write("¥tJUMP¥tL" + blab + "¥n");
-		    bw.write("L" + alab + "¥tNOP¥n");	
+			bw.write("\tJUMP\tL" + blab + "\n");
+		    bw.write("L" + alab + "\tNOP\n");	
 			scan();
 			compound_st();
-			bw.write("L" + blab + "¥tNOP¥n");
+			bw.write("L" + blab + "\tNOP\n");
 			scan();
 			}else{
-			bw.write("L" + alab + "¥tNOP¥n");//
+			bw.write("L" + alab + "\tNOP\n");//
 			}
 			bcan();
 		}
@@ -573,25 +573,25 @@ import java.util.LinkedList;
 			int type;
 			int alab,blab;
 			alab = make_label();
-		    bw.write("L" +alab + "¥tNOP¥n");
+		    bw.write("L" +alab + "\tNOP\n");
 			scan();
 			type = exp_st();
 			if(type != 2){
-			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "invalid type is used in conditionnal expression at while statement.");//13
+			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "invalid type is used in conditionnal expression at while statement.");//13
 			System.exit(-1);
 			}
-			bw.write("¥tLAD¥tGR2,0¥n");
-			bw.write("¥tCPA¥tGR1,GR2¥n");
+			bw.write("\tLAD\tGR2,0\n");
+			bw.write("\tCPA\tGR1,GR2\n");
 			blab = make_label();
-			bw.write("¥tJZE¥tL" +blab + "¥n");
+			bw.write("\tJZE\tL" +blab + "\n");
 			scan();
 			if(!token.equals("SDO")){
 			syntax_err();	
 			}
 			scan();
 			st();
-			bw.write("¥tJUMP¥tL" + alab +"¥n"); 
-			bw.write("L" + blab + "¥tNOP¥n");
+			bw.write("\tJUMP\tL" + alab +"\n"); 
+			bw.write("L" + blab + "\tNOP\n");
 		}
 		private static void basic_st() throws IOException{//基本文
 			if(token.equals("SIDENTIFIER")){
@@ -658,70 +658,70 @@ import java.util.LinkedList;
 			if((token.equals("SEQUAL"))||(token.equals("SNOTEQUAL"))||(token.equals("SLESS"))||
 					(token.equals("SLESSEQUAL"))||(token.equals("SGREAT"))||(token.equals("SGREATEQUAL"))){
 				symbol = token;
-				bw.write("¥tPUSH¥t0,GR1¥n");
+				bw.write("\tPUSH\t0,GR1\n");
 				scan();
 				type2 = simp_st();
-				bw.write("¥tPOP¥tGR2¥n");
-				bw.write("¥tCPA¥tGR2,GR1¥n");
+				bw.write("\tPOP\tGR2\n");
+				bw.write("\tCPA\tGR2,GR1\n");
 				if(type1!= type2){
-					System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "different type operand is used for relation operator.");//9
+					System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "different type operand is used for relation operator.");//9
 					System.exit(-1);
 					}
 			if(symbol.equals("SEQUAL")){
 				alab = make_label();
-				bw.write("¥tJNZ¥tL" + alab + "¥n");
+				bw.write("\tJNZ\tL" + alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");
 			}
 			else if(symbol.equals("SNOTEQUAL")){
 				alab = make_label();
-				bw.write("¥tJZE¥tL" + alab + "¥n");
+				bw.write("\tJZE\tL" + alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");
 			}
 			else if(symbol.equals("SLESS")){
 				alab = make_label();
-				bw.write("¥tJZE¥tL" + alab + "¥n");
-				bw.write("¥tJPL¥tL" + alab + "¥n");
+				bw.write("\tJZE\tL" + alab + "\n");
+				bw.write("\tJPL\tL" + alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");
 			}
 			else if(symbol.equals("SLESSEQUAL")){
 				alab = make_label();
-				bw.write("¥tJPL¥tL" + alab + "¥n");
+				bw.write("\tJPL\tL" + alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");
 			}
 			else if(symbol.equals("SGREAT")){
 				alab = make_label();
-				bw.write("¥tJZE¥tL" + alab + "¥n");
-				bw.write("¥tJMI¥tL" +alab + "¥n");
+				bw.write("\tJZE\tL" + alab + "\n");
+				bw.write("\tJMI\tL" +alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");  
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");  
 			}
 			else if(symbol.equals("SGREATEQUAL")){
 				alab = make_label();
-				bw.write("¥tJMI¥tL" + alab + "¥n");
+				bw.write("\tJMI\tL" + alab + "\n");
 			    blab = make_label();
-			    bw.write("¥tLAD¥tGR1,1¥n");
-			    bw.write("¥tJUMP¥tL" + blab + "¥n");
-			    bw.write("L" + alab + "¥tLAD¥tGR1,0¥n");
-			    bw.write("L" + blab + "¥tNOP¥n");  
+			    bw.write("\tLAD\tGR1,1\n");
+			    bw.write("\tJUMP\tL" + blab + "\n");
+			    bw.write("L" + alab + "\tLAD\tGR1,0\n");
+			    bw.write("L" + blab + "\tNOP\n");  
 			}
 			scan();
 			bcan();
@@ -743,48 +743,48 @@ import java.util.LinkedList;
         	}
         	type1 = item_st();
         	if(minus_flg){
-        	bw.write("¥tLAD¥tGR2,0¥n");
-        	bw.write("¥tSUBA¥tGR2,GR1¥n");
-        	bw.write("¥tLD¥tGR1,GR2¥n");
+        	bw.write("\tLAD\tGR2,0\n");
+        	bw.write("\tSUBA\tGR2,GR1\n");
+        	bw.write("\tLD\tGR1,GR2\n");
         	}
         	scan();
         	if((token.equals("SPLUS"))||(token.equals("SMINUS"))){
         	do{
         	if(token.equals("SPLUS")){
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         		cp_ziku = ziku;
 				cp_token = token;
 				cp_nLine = nLine;
         	    type2 = item_st();
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tADDA¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tADDA\tGR1,GR2\n");
         	    array1.addFirst(cp_ziku);
         	    array2.addFirst(cp_token);
         	    array3.addFirst(cp_nLine);
         	    scan();
         	    if((type2 != 3)||(type1 != type2)){
-        	    	System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type is conflicting between operator and operand.");//8
+        	    	System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type is conflicting between operator and operand.");//8
         	    	System.exit(-1);
         	    }
         	    scan();
             }
         	else if(token.equals("SMINUS")){
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         		cp_ziku = ziku;
 				cp_token = token;
 				cp_nLine = nLine;
         	    type2 = item_st();
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tSUBA¥tGR2,GR1¥n");
-        	    bw.write("¥tLD¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tSUBA\tGR2,GR1\n");
+        	    bw.write("\tLD\tGR1,GR2\n");
         	    array1.addFirst(cp_ziku);
         	    array2.addFirst(cp_token);
         	    array3.addFirst(cp_nLine);
         	    scan();
         	    if((type2 != 3)||(type1 != type2)){
-        	    	System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type is conflicting between operator and operand.");//8
+        	    	System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type is conflicting between operator and operand.");//8
         	    	System.exit(-1);
         	    }
         	    scan();
@@ -795,26 +795,26 @@ import java.util.LinkedList;
         	}
         	else if(token.equals("SOR")){
         	    do{
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         		cp_ziku = ziku;
 				cp_token = token;
 				cp_nLine = nLine;
         	    type2 = item_st();
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tOR¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tOR\tGR1,GR2\n");
         	    array1.addFirst(cp_ziku);
         	    array2.addFirst(cp_token);
         	    array3.addFirst(cp_nLine);
         	    scan();
         	    if((type2 != 2)||(type1 != type2)){
-        	    	System.out.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type of expression is invalid , must be boolean");
+        	    	System.out.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type of expression is invalid , must be boolean");
         	    	System.exit(-1);
         	    }
         	    scan();
         		}while((token.equals("SOR")));
         	    bcan();
-        	    bw.write(";;;;;simp end;;;;¥n");
+        	    bw.write(";;;;;simp end;;;;\n");
         	    return 2;
         	}
         	else{
@@ -830,47 +830,47 @@ import java.util.LinkedList;
         	if((token.equals("SSTAR"))||(token.equals("SDIVD"))||(token.equals("SMOD"))){
         	do{
         	if(token.equals("SSTAR")){
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         	    type2 = factor_st();
         	    if((type2 != 3)||(type1 != type2)){
-        	    	System.out.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type of expression is invalid , must be integer");
+        	    	System.out.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type of expression is invalid , must be integer");
         	    	System.exit(-1);
         	    }
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tCALL¥tMULT¥n");
-        	    bw.write("¥tLD¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tCALL\tMULT\n");
+        	    bw.write("\tLD\tGR1,GR2\n");
         	    scan();
         	}
         	else if(token.equals("SDIVD")){
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         	    type2 = factor_st();
         	    if((type2 != 3)||(type1 != type2)){
-        	    	System.out.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type of expression is invalid , must be integer");
+        	    	System.out.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type of expression is invalid , must be integer");
         	    	System.exit(-1);
         	    }
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
-        	    bw.write("¥tLD¥tGR1,GR2¥n");
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tCALL¥tDIV¥n");
-        	    bw.write("¥tLD¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tPUSH\t0,GR1\n");
+        	    bw.write("\tLD\tGR1,GR2\n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tCALL\tDIV\n");
+        	    bw.write("\tLD\tGR1,GR2\n");
         	    scan();
         	}
         	else if(token.equals("SMOD")){
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         	    type2 = factor_st();
         	    if((type2 != 3)||(type1 != type2)){
-        	    	System.out.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type of expression is invalid , must be integer");
+        	    	System.out.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type of expression is invalid , must be integer");
         	    	System.exit(-1);
         	    }
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
-        	    bw.write("¥tLD¥tGR1,GR2¥n");
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tCALL¥tDIV¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tPUSH\t0,GR1\n");
+        	    bw.write("\tLD\tGR1,GR2\n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tCALL\tDIV\n");
         	    scan();
         	}
         	}while((token.equals("SSTAR"))||(token.equals("SDIVD"))||(token.equals("SMOD")));
@@ -879,15 +879,15 @@ import java.util.LinkedList;
         	}
         	else if(token.equals("SAND")){
         	    do{
-        	    bw.write("¥tPUSH¥t0,GR1¥n");
+        	    bw.write("\tPUSH\t0,GR1\n");
         		scan();
         	    type2 = factor_st();
         	    if((type2 != 2)||(type1 != type2)){
-        	    	System.out.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type of expression is invalid , must be boolean");
+        	    	System.out.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type of expression is invalid , must be boolean");
         	    	System.exit(-1);
         	    }
-        	    bw.write("¥tPOP¥tGR2¥n");
-        	    bw.write("¥tAND¥tGR1,GR2¥n");
+        	    bw.write("\tPOP\tGR2\n");
+        	    bw.write("\tAND\tGR1,GR2\n");
         	    scan();
         	}while(token.equals("SAND"));
         	    bcan();
@@ -908,8 +908,8 @@ import java.util.LinkedList;
     		for(int h=0;h<proc_list.size();h++){
 			if(proc_list.get(h).getpara_name().equals(ziku)&&(proc_list.get(h).getproc_name().equals(procedure_name))){
 				type1 = para_st();
-				bw.write(";;;;;factor para begin;;;;¥n");
-				bw.write("¥tLD¥tGR1," + proc_list.get(h).getpara_offset() + ",GR5¥n");//パラメータ
+				bw.write(";;;;;factor para begin;;;;\n");
+				bw.write("\tLD\tGR1," + proc_list.get(h).getpara_offset() + ",GR5\n");//パラメータ
 				flg_p = true;
 				index_flag1 = false;
 				//instant_varname2 = "";
@@ -917,11 +917,11 @@ import java.util.LinkedList;
     		}
     		if(!flg_p){
     		type1 = variable_st();
-    		bw.write(";;;;;factor variable begin;;;;¥n");
+    		bw.write(";;;;;factor variable begin;;;;\n");
     		if(index_flag1){//式に添字があれば
     			for(int f=0;f<l_var_table.size();f++){
 				if(l_var_table.get(f).getvar_name().equals(instant_varname2)&&(l_var_table.get(f).getproc_name().equals(procedure_name))){
-					bw.write("¥tLD¥tGR1," + l_var_table.get(f).getvar_offset() + ",GR5¥n");
+					bw.write("\tLD\tGR1," + l_var_table.get(f).getvar_offset() + ",GR5\n");
 					flg_l = true;
 					index_flag1 = false;
 					instant_varname2 = "";
@@ -932,19 +932,19 @@ import java.util.LinkedList;
 				if((l_var_table.get(f).getvar_name().equals(instant_varname1)&&(l_var_table.get(f).getproc_name().equals(procedure_name))&&(!flg_p))){
 					if (l_var_table.get(f).getarray_type()){//配列
 						if (!index_flag){//添え字がない場合
-							bw.write("¥tLAD¥tGR2," + l_var_table.get(f).getvar_offset() + ",GR5¥n");
-							bw.write("¥tLAD¥tGR1," + l_var_table.get(f).getvar_size() + "¥n");
+							bw.write("\tLAD\tGR2," + l_var_table.get(f).getvar_offset() + ",GR5\n");
+							bw.write("\tLAD\tGR1," + l_var_table.get(f).getvar_size() + "\n");
 							}
 							else{//添え字がある場合
-							bw.write("¥tLAD¥tGR2," + l_var_table.get(f).getvar_min() + "¥n");
-							bw.write("¥tSUBA¥tGR1,GR2¥n");
-							bw.write("¥tLAD¥tGR2," + l_var_table.get(f).getvar_offset() + "¥n");
-							bw.write("¥tADDA¥tGR1,GR2¥n");
-							bw.write("¥tADDA¥tGR1,GR5¥n");
-							bw.write("¥tLD¥tGR1,0,GR1¥n");
+							bw.write("\tLAD\tGR2," + l_var_table.get(f).getvar_min() + "\n");
+							bw.write("\tSUBA\tGR1,GR2\n");
+							bw.write("\tLAD\tGR2," + l_var_table.get(f).getvar_offset() + "\n");
+							bw.write("\tADDA\tGR1,GR2\n");
+							bw.write("\tADDA\tGR1,GR5\n");
+							bw.write("\tLD\tGR1,0,GR1\n");
 							}
 						}
-					else bw.write("¥tLD¥tGR1," + l_var_table.get(f).getvar_offset() + ",GR5¥n");
+					else bw.write("\tLD\tGR1," + l_var_table.get(f).getvar_offset() + ",GR5\n");
 					instant_varname1 = "";
 					flg_l = true;
 				}
@@ -954,7 +954,7 @@ import java.util.LinkedList;
     		if(index_flag1){//式に添字があれば
     		for(int f=0;f<g_var_table.size();f++){
 				if(g_var_table.get(f).getvar_name().equals(instant_varname2)){
-					bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+					bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
 					index_flag1 = false;
 					instant_varname2 = "";
 				}
@@ -964,19 +964,19 @@ import java.util.LinkedList;
 				if(g_var_table.get(f).getvar_name().equals(instant_varname1)){
 					if (g_var_table.get(f).getarray_type()){//配列
 						if (!index_flag){//添え字がない場合
-							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
-							bw.write("¥tLAD¥tGR1," + g_var_table.get(f).getvar_size() + "¥n");
+							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + ",GR3\n");
+							bw.write("\tLAD\tGR1," + g_var_table.get(f).getvar_size() + "\n");
 							}
 							else{//添え字がある場合
-							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_min() + "¥n");
-							bw.write("¥tSUBA¥tGR1,GR2¥n");
-							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + "¥n");
-							bw.write("¥tADDA¥tGR1,GR2¥n");
-							bw.write("¥tADDA¥tGR1,GR3¥n");	
-							bw.write("¥tLD¥tGR1,0,GR1¥n");
+							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_min() + "\n");
+							bw.write("\tSUBA\tGR1,GR2\n");
+							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + "\n");
+							bw.write("\tADDA\tGR1,GR2\n");
+							bw.write("\tADDA\tGR1,GR3\n");	
+							bw.write("\tLD\tGR1,0,GR1\n");
 							}
 				}
-					else bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+					else bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
 					instant_varname1 = "";
 				}
     			}
@@ -985,11 +985,11 @@ import java.util.LinkedList;
     		}
             }else{//手続き外
             	type1 = variable_st();
-        		bw.write(";;;;;factor variable begin;;;;¥n");
+        		bw.write(";;;;;factor variable begin;;;;\n");
         		if(index_flag2){//式に添字があれば
                 	for(int f=0;f<g_var_table.size();f++){
         				if(g_var_table.get(f).getvar_name().equals(instant_varname3)){
-        					bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+        					bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
         				}
                 		}
                 }
@@ -998,17 +998,17 @@ import java.util.LinkedList;
     				if(g_var_table.get(f).getvar_name().equals(instant_varname2)){
     					if (g_var_table.get(f).getarray_type()){//配列
     						if (!index_flag){//添え字がない場合
-    					        bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+    					        bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
     				            }else{
-    					        bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_min() + "¥n");
-						        bw.write("¥tSUBA¥tGR1,GR2¥n");//添字の中で何番目か
-						        bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + "¥n");
-						        bw.write("¥tADDA¥tGR1,GR2¥n");
-						        bw.write("¥tADDA¥tGR1,GR3¥n");	
-						        bw.write("¥tLD¥tGR1,0,GR1¥n");	
+    					        bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_min() + "\n");
+						        bw.write("\tSUBA\tGR1,GR2\n");//添字の中で何番目か
+						        bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + "\n");
+						        bw.write("\tADDA\tGR1,GR2\n");
+						        bw.write("\tADDA\tGR1,GR3\n");	
+						        bw.write("\tLD\tGR1,0,GR1\n");	
     				            }
             		     }
-    					else bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+    					else bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
     				}
             	}
             	}else{
@@ -1016,28 +1016,28 @@ import java.util.LinkedList;
     				if(g_var_table.get(f).getvar_name().equals(instant_varname1)){
     					if (g_var_table.get(f).getarray_type()){//配列
     						if (!index_flag){//添え字がない場合
-    							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
-    							bw.write("¥tLAD¥tGR1," + g_var_table.get(f).getvar_size() + "¥n");
+    							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + ",GR3\n");
+    							bw.write("\tLAD\tGR1," + g_var_table.get(f).getvar_size() + "\n");
     							}
     							else{//添え字がある場合
-    							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_min() + "¥n");
-    							bw.write("¥tSUBA¥tGR1,GR2¥n");//添字の中で何番目か
-    							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + "¥n");
-    							bw.write("¥tADDA¥tGR1,GR2¥n");
-    							bw.write("¥tADDA¥tGR1,GR3¥n");	
-    							bw.write("¥tLD¥tGR1,0,GR1¥n");
+    							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_min() + "\n");
+    							bw.write("\tSUBA\tGR1,GR2\n");//添字の中で何番目か
+    							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + "\n");
+    							bw.write("\tADDA\tGR1,GR2\n");
+    							bw.write("\tADDA\tGR1,GR3\n");	
+    							bw.write("\tLD\tGR1,0,GR1\n");
     							}
     				}
-    					else bw.write("¥tLD¥tGR1," + g_var_table.get(f).getvar_offset() + ",GR3¥n");
+    					else bw.write("\tLD\tGR1," + g_var_table.get(f).getvar_offset() + ",GR3\n");
     				}
             		}
     				
             	}
             }
         	if(flg_p){
-        	bw.write(";;;;;factor para end;;;;¥n");	
+        	bw.write(";;;;;factor para end;;;;\n");	
         	}else{
-        	bw.write(";;;;;factor variable end;;;;¥n");
+        	bw.write(";;;;;factor variable end;;;;\n");
         	}
         	return type1;
         	}
@@ -1053,8 +1053,8 @@ import java.util.LinkedList;
         	else if(token.equals("SNOT")){
         	scan();
         	factor_st();
-        	bw.write("¥tLAD¥tGR2,1¥n");
-        	bw.write("¥tXOR¥tGR1,GR2¥n");
+        	bw.write("\tLAD\tGR2,1\n");
+        	bw.write("\tXOR\tGR1,GR2\n");
         	return 2;
         	}
         	else{
@@ -1109,7 +1109,7 @@ import java.util.LinkedList;
             	char_flg = true;	
             	}
             	else if(!token.equals("SLBRACKET")&&(!output_flag)){
-            	System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "array type variable is used without index.");//5	
+            	System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "array type variable is used without index.");//5	
             	System.exit(-1);
             	}
             	else{
@@ -1125,7 +1125,7 @@ import java.util.LinkedList;
         		char_flg = true;	
         		}
             	else if(!token.equals("SLBRACKET")&&(!output_flag)){
-            	System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "array type variable is used without index.");//5	
+            	System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "array type variable is used without index.");//5	
             	System.exit(-1);
             	}
             	else{
@@ -1135,7 +1135,7 @@ import java.util.LinkedList;
             }
         	}
         	if((!flg1)&&(!flg2)){
-        		System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable name is not defined.");//2
+        		System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable name is not defined.");//2
         		System.exit(-1);
             		}
         	scan();
@@ -1147,12 +1147,12 @@ import java.util.LinkedList;
         		}
         	if(flg1){
 			if(l_var_table.get(i_l).getarray_type()==false){
-				System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable is not type array.");//4
+				System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable is not type array.");//4
 				System.exit(-1);
 				}
         	}else if(flg2){
         	if(g_var_table.get(i_g).getarray_type()==false){
-    			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "variable is not type array.");//4
+    			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "variable is not type array.");//4
     			System.exit(-1);
     			}	
         	}
@@ -1163,7 +1163,7 @@ import java.util.LinkedList;
         	}
         	index_flag2 = false;
         	if(type != 3){
-        	System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "invalid type is used in index of array.");//12
+        	System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "invalid type is used in index of array.");//12
         	System.exit(-1);
         	}
         	scan();
@@ -1193,13 +1193,13 @@ import java.util.LinkedList;
             	}
             }
         	if(!flg){
-        		System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "para name is not defined.");//2
+        		System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "para name is not defined.");//2
         		System.exit(-1);
             		}
         	return proc_list.get(i_p).getpara_type();
         }
         private static void assign_st() throws IOException{//代入文
-        	bw.write(";;;;;;;begin assign;;;;;;¥n");
+        	bw.write(";;;;;;;begin assign;;;;;;\n");
         	int type1=0;
         	int type2;
         	int plab=0;
@@ -1210,7 +1210,7 @@ import java.util.LinkedList;
         		for(int h=0;h<proc_list.size();h++){
     			if(proc_list.get(h).getpara_name().equals(ziku)&&(proc_list.get(h).getproc_name().equals(procedure_name))){
     				type1 = para_st();
-    	        	bw.write(";;;para=¥t" + instant_paraname + ";;;;;;¥n");
+    	        	bw.write(";;;para=\t" + instant_paraname + ";;;;;;\n");
     				h2 = h;
     				plab = 1;
     			    }
@@ -1218,16 +1218,16 @@ import java.util.LinkedList;
         		if(plab != 1){
         		type1 = variable_st();
         		assign_varname = instant_varname1;
-        		bw.write(";;;var=¥t" + assign_varname + ";;;;;;¥n");
+        		bw.write(";;;var=\t" + assign_varname + ";;;;;;\n");
         		for(int f=0;f<l_var_table.size();f++){
     				if(l_var_table.get(f).getvar_name().equals(assign_varname)&&(l_var_table.get(f).getproc_name().equals(procedure_name))){
     					if (l_var_table.get(f).getarray_type()){//配列
-    							bw.write("¥tLAD¥tGR2," + l_var_table.get(f).getvar_min() + "¥n");
-    							bw.write("¥tSUBA¥tGR1,GR2¥n");
-    							bw.write("¥tLAD¥tGR2," + l_var_table.get(f).getvar_offset() + "¥n");
-    							bw.write("¥tADDA¥tGR1,GR2¥n");
-    							bw.write("¥tADDA¥tGR1,GR5¥n");	
-    							bw.write("¥tPUSH¥t0,GR1¥n");
+    							bw.write("\tLAD\tGR2," + l_var_table.get(f).getvar_min() + "\n");
+    							bw.write("\tSUBA\tGR1,GR2\n");
+    							bw.write("\tLAD\tGR2," + l_var_table.get(f).getvar_offset() + "\n");
+    							bw.write("\tADDA\tGR1,GR2\n");
+    							bw.write("\tADDA\tGR1,GR5\n");	
+    							bw.write("\tPUSH\t0,GR1\n");
     							}
     					f2 = f;
     					plab = 2;
@@ -1237,12 +1237,12 @@ import java.util.LinkedList;
         		for(int f=0;f<g_var_table.size();f++){
     				if(g_var_table.get(f).getvar_name().equals(assign_varname)){
     					if (g_var_table.get(f).getarray_type()){//配列
-    							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_min() + "¥n");
-    							bw.write("¥tSUBA¥tGR1,GR2¥n");
-    							bw.write("¥tLAD¥tGR2," + g_var_table.get(f).getvar_offset() + "¥n");
-    						    bw.write("¥tADDA¥tGR1,GR2¥n");
-    						    bw.write("¥tADDA¥tGR1,GR3¥n");	
-    						    bw.write("¥tPUSH¥t0,GR1¥n");
+    							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_min() + "\n");
+    							bw.write("\tSUBA\tGR1,GR2\n");
+    							bw.write("\tLAD\tGR2," + g_var_table.get(f).getvar_offset() + "\n");
+    						    bw.write("\tADDA\tGR1,GR2\n");
+    						    bw.write("\tADDA\tGR1,GR3\n");	
+    						    bw.write("\tPUSH\t0,GR1\n");
     							}
     					f3 = f;
     					plab = 3;
@@ -1253,16 +1253,16 @@ import java.util.LinkedList;
         	}else{
         		type1 = variable_st();
         		assign_varname = instant_varname1;
-        		bw.write(";;;var=¥t" + assign_varname + ";;;;;;¥n");
+        		bw.write(";;;var=\t" + assign_varname + ";;;;;;\n");
         		for(int e=0;e<g_var_table.size();e++){
     				if(g_var_table.get(e).getvar_name().equals(assign_varname)){
     					if (g_var_table.get(e).getarray_type()){//配列
-					    bw.write("¥tLAD¥tGR2," + g_var_table.get(e).getvar_min() + "¥n");
-					    bw.write("¥tSUBA¥tGR1,GR2¥n");
-					    bw.write("¥tLAD¥tGR2," + g_var_table.get(e).getvar_offset() + "¥n");
-					    bw.write("¥tADDA¥tGR1,GR2¥n");
-					    bw.write("¥tADDA¥tGR1,GR3¥n");
-					    bw.write("¥tPUSH¥t0,GR1¥n"); 
+					    bw.write("\tLAD\tGR2," + g_var_table.get(e).getvar_min() + "\n");
+					    bw.write("\tSUBA\tGR1,GR2\n");
+					    bw.write("\tLAD\tGR2," + g_var_table.get(e).getvar_offset() + "\n");
+					    bw.write("\tADDA\tGR1,GR2\n");
+					    bw.write("\tADDA\tGR1,GR3\n");
+					    bw.write("\tPUSH\t0,GR1\n"); 
 				        }
     				f3 = e;
 				    plab = 3;
@@ -1276,28 +1276,28 @@ import java.util.LinkedList;
         	scan();
         	type2 = exp_st();
         	if(type1 != type2){
-        		System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "type is conflicting in assign statement.");//10
+        		System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "type is conflicting in assign statement.");//10
     			System.exit(-1);
         	}
         	if (plab == 1){
-        		    bw.write("¥tST¥tGR1," + proc_list.get(h2).getpara_offset() + ",GR5¥n");
+        		    bw.write("\tST\tGR1," + proc_list.get(h2).getpara_offset() + ",GR5\n");
         	}
 			else if(plab == 2){
     					if (l_var_table.get(f2).getarray_type()){//配列
-					    bw.write("¥tPOP¥tGR2¥n");
-					    bw.write("¥tST¥tGR1,0,GR2¥n");
+					    bw.write("\tPOP\tGR2\n");
+					    bw.write("\tST\tGR1,0,GR2\n");
 				        }
-				        else bw.write("¥tST¥tGR1," + l_var_table.get(f2).getvar_offset() + ",GR5¥n");
+				        else bw.write("\tST\tGR1," + l_var_table.get(f2).getvar_offset() + ",GR5\n");
 			}
 			else if(plab == 3){
     				    if (g_var_table.get(f3).getarray_type()){//配列
-					    bw.write("¥tPOP¥tGR2¥n");
-					    bw.write("¥tST¥tGR1,0,GR2¥n");
+					    bw.write("\tPOP\tGR2\n");
+					    bw.write("\tST\tGR1,0,GR2\n");
 				        }
-				        else bw.write("¥tST¥tGR1," + g_var_table.get(f3).getvar_offset() + ",GR3¥n");
+				        else bw.write("\tST\tGR1," + g_var_table.get(f3).getvar_offset() + ",GR3\n");
             }
         	assign_varname = "";
-        	bw.write(";;;;;;;end assign;;;;;;¥n");
+        	bw.write(";;;;;;;end assign;;;;;;\n");
         }
         private static void callingpro_st() throws IOException{//手続き呼出し文
         	int counter=0;
@@ -1305,21 +1305,21 @@ import java.util.LinkedList;
         	instant_procname = instant_procname + "        ";//8個分の空白を入れる。
         	name();
         	if(!tmp3.contains(ziku)){
-			System.err.println("Line" +"¥t"+ nLine +"¥t"+ ":" +"¥t"+ "proc name is not defined.");//7
+			System.err.println("Line" +"\t"+ nLine +"\t"+ ":" +"\t"+ "proc name is not defined.");//7
 			System.exit(-1);
 			}
         	scan();
         	if(token.equals("SLPAREN")){
         	scan();
         	exp_st();
-        	bw.write("¥tPUSH¥t0,GR1¥n");//実引数を積む
+        	bw.write("\tPUSH\t0,GR1\n");//実引数を積む
         	counter++;
         	scan();
         	if(token.equals("SCOMMA")){
         		do{
         	scan();
         	exp_st();
-        	bw.write("¥tPUSH¥t0,GR1¥n");
+        	bw.write("\tPUSH\t0,GR1\n");
         	counter++;
         	scan();
         	}while(token.equals("SCOMMA"));
@@ -1332,9 +1332,9 @@ import java.util.LinkedList;
             scan();
         	}
         	bcan();
-        	bw.write("¥tCALL¥t" + instant_procname.toUpperCase().substring(0,7) + "¥n");
+        	bw.write("\tCALL\t" + instant_procname.toUpperCase().substring(0,7) + "\n");
         	for(int i=0;i<counter;i++){
-        		bw.write("¥tPOP¥tGR0¥n");
+        		bw.write("\tPOP\tGR0\n");
         	}
         }
         
@@ -1353,17 +1353,17 @@ import java.util.LinkedList;
 						}
 					}
 					if (g_var_table.get(k).getvar_type()==3) {
-						bw.write("¥tLAD¥tGR2," + g_var_table.get(k).getvar_offset() + ",GR3¥n");
-						bw.write("¥tCALL¥tRDINT¥n");
+						bw.write("\tLAD\tGR2," + g_var_table.get(k).getvar_offset() + ",GR3\n");
+						bw.write("\tCALL\tRDINT\n");
 					}
 					else if (g_var_table.get(k).getvar_type()==1){
-						bw.write("¥tLAD¥tGR2," + g_var_table.get(k).getvar_offset() + ",GR3¥n");
-						bw.write("¥tCALL¥tRDCHAR¥n");
+						bw.write("\tLAD\tGR2," + g_var_table.get(k).getvar_offset() + ",GR3\n");
+						bw.write("\tCALL\tRDCHAR\n");
 					}
 					else if (g_var_table.get(k).getarray_type()){
-						bw.write("¥tLAD¥tGR1," + Var_g.getvar_offset() + "¥n");
-						bw.write("¥tLAD¥tGR2," + g_var_table.get(k).getvar_offset() + ",GR3¥n");
-						bw.write("¥tCALL¥tRDSTRING¥n");
+						bw.write("\tLAD\tGR1," + Var_g.getvar_offset() + "\n");
+						bw.write("\tLAD\tGR2," + g_var_table.get(k).getvar_offset() + ",GR3\n");
+						bw.write("\tCALL\tRDSTRING\n");
 					}
                 }
             	scan();
@@ -1384,18 +1384,18 @@ import java.util.LinkedList;
             	scan();
             	type1 = exp_st();
             	if(type1 == 4){
-            		bw.write("¥tCALL¥tWRTSTR¥n");	
+            		bw.write("\tCALL\tWRTSTR\n");	
             	}
             	else if(type1 == 3){
-            		bw.write("¥tLD¥tGR2,GR1¥n");
-            		bw.write("¥tCALL¥tWRTINT¥n");
+            		bw.write("\tLD\tGR2,GR1\n");
+            		bw.write("\tCALL\tWRTINT\n");
             	}
             	else if(type1 == 1){
             		if(char_flg){	
-            		bw.write("¥tCALL¥tWRTSTR¥n");
+            		bw.write("\tCALL\tWRTSTR\n");
             		}else{
-					bw.write("¥tLD¥tGR2,GR1¥n");
-					bw.write("¥tCALL¥tWRTCH¥n");
+					bw.write("\tLD\tGR2,GR1\n");
+					bw.write("\tCALL\tWRTCH\n");
 					}
             		char_flg = false;
             	}
@@ -1405,18 +1405,18 @@ import java.util.LinkedList;
             	scan();
             	type2 = exp_st();
             	if(type2 == 4){
-            		bw.write("¥tCALL¥tWRTSTR¥n");	
+            		bw.write("\tCALL\tWRTSTR\n");	
             	}
             	else if(type2 == 3){
-            		bw.write("¥tLD¥tGR2,GR1¥n");
-            		bw.write("¥tCALL¥tWRTINT¥n");
+            		bw.write("\tLD\tGR2,GR1\n");
+            		bw.write("\tCALL\tWRTINT\n");
             	}
             	else if(type2 == 1){
             		if(char_flg){	
-            		bw.write("¥tCALL¥tWRTSTR¥n");
+            		bw.write("\tCALL\tWRTSTR\n");
             		}else{
-					bw.write("¥tLD¥tGR2,GR1¥n");
-					bw.write("¥tCALL¥tWRTCH¥n");
+					bw.write("\tLD\tGR2,GR1\n");
+					bw.write("\tCALL\tWRTCH\n");
 					}
             		char_flg = false;
             	}
@@ -1431,7 +1431,7 @@ import java.util.LinkedList;
                 scan();
                 }
             	bcan();	
-            	bw.write("¥tCALL¥tWRTLN¥n");
+            	bw.write("\tCALL\tWRTLN\n");
             	output_flag = false;
         	}
         }
@@ -1454,15 +1454,15 @@ import java.util.LinkedList;
         }
         static int const_st() throws IOException{//定数
         	if(token.equals("SFALSE")){
-        		bw.write("¥tLAD¥tGR1,0¥n");
+        		bw.write("\tLAD\tGR1,0\n");
         		return 2;//boolean
         	}
         	if(token.equals("STRUE")){
-        		bw.write("¥tLAD¥tGR1,1¥n");
+        		bw.write("\tLAD\tGR1,1\n");
         		return 2;//boolean
         	}
         	else if(token.equals("SCONSTANT")){
-    			bw.write("¥tLAD¥tGR1," + ziku + "¥n");
+    			bw.write("\tLAD\tGR1," + ziku + "\n");
         		return 3;//integer
         	}
         	else if(token.equals("SSTRING")){
@@ -1471,13 +1471,13 @@ import java.util.LinkedList;
         		String[] str = ziku.split("'",3);
         		const_tmp.add(ziku);
         		if(str[1].length() == 1){//文字定数
-    			bw.write("¥tLD¥tGR1,ST" + const_num + "¥n");//
+    			bw.write("\tLD\tGR1,ST" + const_num + "\n");//
     			const_num++;
     			return 1;//char			
     			}
         		else{//文字列定数
-    			bw.write("¥tLAD¥tGR2,ST" + const_num + "¥n");
-    			bw.write("¥tLAD¥tGR1," + str[1].length() + "¥n");
+    			bw.write("\tLAD\tGR2,ST" + const_num + "\n");
+    			bw.write("\tLAD\tGR1," + str[1].length() + "\n");
     			const_num++;
     			return 4;//string
         		}
@@ -1519,13 +1519,13 @@ import java.util.LinkedList;
         	while ((line = br.readLine()) != null) 
             {	
         	   int i= 0;
-        	   if(line.charAt(i)==('¥'')){
+        	   if(line.charAt(i)==('\'')){
         		   String[] strAryed = line.split("'",3); 
         		   ziked = "'"+strAryed[1]+"'";
         		   array1.add(ziked);
         		   ziked ="";
         		   linee = strAryed[2];
-        		   String[] strAry = linee.split("¥¥s",4);
+        		   String[] strAry = linee.split("\\s",4);
             	   typed = strAry[1];
             	   nLined = strAry[3];
                    array2.add(typed);
@@ -1533,7 +1533,7 @@ import java.util.LinkedList;
                    array3.add(nLined);
                    nLined ="";
         	   }else{
-               String[] strAry = line.split("¥¥s",4);
+               String[] strAry = line.split("\\s",4);
                ziked = strAry[0];
         	   typed = strAry[1];
         	   nLined = strAry[3];
