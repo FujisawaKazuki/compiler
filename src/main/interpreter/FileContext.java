@@ -31,6 +31,7 @@ public class FileContext implements Context {
 			pl.typeNum = Integer.parseInt(st.nextToken());
 			pl.lineNum = Integer.parseInt(st.nextToken());
 			
+			currentLine = pl;
 			return pl;
 		} catch (IOException e){
 			Logger.printLog(e.toString());
@@ -41,6 +42,6 @@ public class FileContext implements Context {
 	@Override
 	public ParsedLine currentLine() {
 		// TODO Auto-generated method stub
-		return null;
+		return currentLine;
 	}
 }
